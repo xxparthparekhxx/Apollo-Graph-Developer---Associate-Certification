@@ -15,6 +15,26 @@ const resolvers = {
       return dataSources.trackAPI.getModule(id);
     },
   },
+  Mutation:{
+    incrementTrackViews:async(_,{id},{dataSources})=>{
+      try{
+      const track = await dataSources.trackAPI.incrementTrackViews(id);
+      return {
+        code:200,
+        success:true,
+        message:`Successfully incremented number of views for track ${id}`,
+        track:track
+      };}
+      catch(err){
+        return {
+          code:err.extenstions.response.status,
+          success:false,
+          message: err.extenstions.response.body,
+          track: null
+        }
+      }
+    }
+  },
   Track: {
     author: ({ authorId }, _, { dataSources }) => {
       return dataSources.trackAPI.getAuthor(authorId);
@@ -24,6 +44,8 @@ const resolvers = {
       return dataSources.trackAPI.getTrackModules(id);
     },
   },
+
+
 };
 
 module.exports = resolvers;
