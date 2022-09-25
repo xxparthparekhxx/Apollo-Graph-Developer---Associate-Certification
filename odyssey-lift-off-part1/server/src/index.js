@@ -1,18 +1,23 @@
-const { ApolloServer } =  require('apollo-server');
-const  typeDefs = require('./schema');
-const resolvers = require('./resolevers');
-const TrackApi  = require('./datasources/track-api');
+const { ApolloServer } = require('apollo-server');
+const typeDefs = require('./schema');
+const resolvers = require('./resolvers');
 
-const server = new ApolloServer({ typeDefs,resolvers:resolvers,dataSources:()=>{
-  return {
-    TrackApi:new TrackApi()
-  }
-} });
+const TrackAPI = require('./datasources/track-api');
 
-server.listen().then(({url}) => {
-    console.log(`
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  dataSources: () => {
+    return {
+      trackAPI: new TrackAPI(),
+    };
+  },
+});
+
+server.listen().then(() => {
+  console.log(`
     🚀  Server is running!
     🔉  Listening on port 4000
-    📭  Query at https://studio.apollographql.com/dev
+    📭  Query at http://localhost:4000
   `);
 });

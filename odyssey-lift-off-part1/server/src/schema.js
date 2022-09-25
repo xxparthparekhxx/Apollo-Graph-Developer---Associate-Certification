@@ -1,34 +1,34 @@
-const { gql }  =require('apollo-server');
+const { gql } = require('apollo-server');
 
-const typeDefs = gql`  
-type Query {
+const typeDefs = gql`
+  type Query {
+    "Query to get tracks array for the homepage grid"
     tracksForHome: [Track!]!
-    Track:Track
-}
+  }
 
-" A Track is a group of modules that teaches about a specific topic. "
-type Track{ 
+  "A track is a group of Modules that teaches about a specific topic"
+  type Track {
     id: ID!
-    "the track's title"
-    title:String!
-    "the track's main author "
+    "The track's title"
+    title: String!
+    "The track's main Author"
     author: Author!
-    "the track's illustration to display in tracks card or tracks page"
+    "The track's illustration to display in track card or track page detail"
     thumbnail: String
-    "The track's approximate duration in minutes"
+    "The track's approximate length to complete, in minutes"
     length: Int
     "The number of modules this track contains"
     modulesCount: Int
-}
+  }
 
-" An Author is the creator of a track. "
-type Author{
+  "Author of a complete Track or a Module"
+  type Author {
     id: ID!
-    "the author's name"
+    "Author's first and last name"
     name: String!
-    "the authors profile picture url"
+    "Author's profile picture"
     photo: String
-}
+  }
 `;
 
-module.exports= typeDefs;
+module.exports = typeDefs;
